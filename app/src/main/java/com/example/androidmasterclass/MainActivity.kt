@@ -2,6 +2,7 @@ package com.example.androidmasterclass
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -18,11 +19,27 @@ class MainActivity : AppCompatActivity() {
         binding.submitButton.setOnClickListener {
             displayGreeting()
         }
+
+        binding.startButton.setOnClickListener {
+            startOrStopProgressBar()
+        }
     }
 
     private fun displayGreeting() {
         binding.apply {
             greetingTextView.text = "Hello! " + nameEditText.text
+        }
+    }
+
+    private fun startOrStopProgressBar() {
+        binding.apply {
+            if (progressBar.visibility == View.GONE) {
+                progressBar.visibility = View.VISIBLE
+                startButton.text = "STOP"
+            } else {
+                progressBar.visibility = View.GONE
+                startButton.text = "START"
+            }
         }
     }
 }
