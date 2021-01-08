@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayGreeting() {
-        binding.greetingTextView.text = "Hello! "+ binding.nameEditText.text
+        binding.apply {
+            greetingTextView.text = "Hello! " + nameEditText.text
+        }
     }
 }
