@@ -3,9 +3,6 @@ package com.example.androidmasterclass
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.example.androidmasterclass.databinding.ActivityMainBinding
 
@@ -23,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         binding.startButton.setOnClickListener {
             startOrStopProgressBar()
         }
+
+        binding.student = getStudent()
+//        val student = getStudent()
+//        binding.name.text = student.name
+//        binding.email.text = student.email
     }
 
     private fun displayGreeting() {
@@ -41,5 +43,13 @@ class MainActivity : AppCompatActivity() {
                 startButton.text = "START"
             }
         }
+    }
+
+    private fun getStudent(): Student {
+        return Student(
+            1,
+            "Pepito",
+            "pepito@bestsacret.com"
+        )
     }
 }
