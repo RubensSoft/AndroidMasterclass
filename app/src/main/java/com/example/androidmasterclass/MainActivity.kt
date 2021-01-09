@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidmasterclass.databinding.ActivityMainBinding
 
@@ -20,7 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.submitButton.setOnClickListener {
             viewModel.changeStudent()
-            binding.viewModel = viewModel
         }
+
+        viewModel.getMutableLiveDataStudent().observe(this, Observer {
+            binding.viewModel = viewModel
+        })
     }
 }

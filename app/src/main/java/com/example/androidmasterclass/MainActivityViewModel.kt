@@ -1,24 +1,36 @@
 package com.example.androidmasterclass
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
-    private var student: Student
+    private var student = MutableLiveData<Student>()
 
     init {
-        student = getStudentFakeUseCase()
+        student.value = getStudentFakeUseCase()
     }
 
-    fun getStudent(): Student {
+    fun getMutableLiveDataStudent(): MutableLiveData<Student> {
         return student
     }
 
+    fun getStudent(): Student? {
+        return student.value
+    }
+
     fun changeStudent() {
-        student = Student(
-            2,
-            "Margarita",
-            "margarita@email.com"
-        )
+        when (student.value?.id) {
+            1 -> student.value = Student(
+                2,
+                "Margarita",
+                "margarita@email.com"
+            )
+            2 -> student.value = Student(
+                1,
+                "Pepito",
+                "pepito@email.com"
+            )
+        }
     }
 
     private fun getStudentFakeUseCase(): Student {
