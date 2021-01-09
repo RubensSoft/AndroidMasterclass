@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeStudent()
         }
 
-        viewModel.getMutableLiveDataStudent().observe(this, Observer {
+        viewModel.studentData.observe(this, Observer {
             binding.viewModel = viewModel
         })
     }
