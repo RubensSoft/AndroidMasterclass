@@ -14,16 +14,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel = MainActivityViewModel()
 
-        binding.student = viewModel.getStudent1()
+        binding.viewModel = viewModel
 
         binding.submitButton.setOnClickListener {
-            binding.student = viewModel.getStudent1()
-        }
-
-        binding.startButton.setOnClickListener {
-            binding.student = viewModel.getStudent2()
+            viewModel.changeStudent()
+            binding.viewModel = viewModel
         }
     }
 }

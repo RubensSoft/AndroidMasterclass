@@ -3,22 +3,29 @@ package com.example.androidmasterclass
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
+    private var student: Student
 
-    fun getStudent1(): Student {
-        return Student(
-            1,
-            "Pepito",
-            "pepito@email.com"
-        )
+    init {
+        student = getStudentFakeUseCase()
     }
 
-    fun getStudent2(): Student {
-        return Student(
+    fun getStudent(): Student {
+        return student
+    }
+
+    fun changeStudent() {
+        student = Student(
             2,
             "Margarita",
             "margarita@email.com"
         )
     }
 
-
+    private fun getStudentFakeUseCase(): Student {
+        return Student(
+            1,
+            "Pepito",
+            "pepito@email.com"
+        )
+    }
 }

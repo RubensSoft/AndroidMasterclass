@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="student"
-            type="com.example.androidmasterclass.Student" />
+            name="viewModel"
+            type="com.example.androidmasterclass.MainActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{student.name}"
+            android:text="@{viewModel.student.name}"
             android:textSize="30sp"
             android:textStyle="bold"
             android:typeface="sans"
@@ -29,7 +29,7 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{student.email}"
+            android:text="@{viewModel.student.email}"
             android:textSize="30sp"
             android:textStyle="bold"
             android:typeface="sans"
