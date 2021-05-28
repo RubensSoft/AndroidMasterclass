@@ -26,9 +26,9 @@ class CoroutinesActivity : AppCompatActivity() {
 
         downloadDataButton.setOnClickListener {
 
-            // bad way to use coroutines
             CoroutineScope(Dispatchers.Main).launch {
-                textUser.text = UserDataManager().getTotalUserCount().toString()
+//                textUser.text = UserDataManagerWithoutGuarantee().getTotalUserCount().toString()
+                textUser.text = UserDataManagerWithGuarantee().getTotalUserCount().toString()
             }
         }
     }
@@ -43,7 +43,7 @@ class CoroutinesActivity : AppCompatActivity() {
 //    }
 }
 
-class UserDataManager {
+class UserDataManagerWithoutGuarantee {
     suspend fun getTotalUserCount() : Int {
         var count = 0
         CoroutineScope(Dispatchers.IO).launch {
@@ -57,5 +57,36 @@ class UserDataManager {
         }
 
         return count + deferred.await()
+    }
+}
+
+class UserDataManagerWithGuarantee {
+    suspend fun getTotalUserCount() : Int {
+        var count = 0
+        lateinit var deferred : Deferred<Int>
+        lateinit var deferredOneMore : Deferred<Int>
+
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                delay(1000)
+                count = 50
+            }
+
+            deferred = async(Dispatchers.IO) {
+                delay(3000)
+                return@async 70
+            }
+
+            deferredOneMore = async(Dispatchers.IO) {
+                getOne()
+            }
+        }
+
+        return count + deferred.await() + deferredOneMore.await()
+    }
+
+    private suspend fun getOne() : Int {
+        delay(1000)
+        return 1
     }
 }
