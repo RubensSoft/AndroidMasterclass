@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CoroutinesActivity : AppCompatActivity() {
     private var count = 0
@@ -22,14 +25,16 @@ class CoroutinesActivity : AppCompatActivity() {
         }
 
         downloadDataButton.setOnClickListener {
-            downloadData()
+            CoroutineScope(Dispatchers.IO).launch {
+                downloadData()
+            }
         }
     }
 
     // simulate long task
     private fun downloadData() {
         for (i in 1..200000) {
-            Log.i("i","Dowload data $i in ${Thread.currentThread().name}")
+            Log.i("i","Download data $i in ${Thread.currentThread().name}")
         }
     }
 }
