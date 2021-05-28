@@ -2,48 +2,44 @@ package com.example.androidmasterclass
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CoroutinesActivity : AppCompatActivity() {
     private var count = 0
+    private lateinit var textUser: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutines)
 
         val clickHereButton = findViewById<Button>(R.id.clickHereButton)
-        val textView = findViewById<TextView>(R.id.textView)
+        val textCount = findViewById<TextView>(R.id.textCount)
         val downloadDataButton = findViewById<Button>(R.id.downloadDataButton)
+        textUser = findViewById(R.id.textUser);
 
         clickHereButton.setOnClickListener {
-            textView.text = count++.toString()
+            textCount.text = count++.toString()
         }
 
         downloadDataButton.setOnClickListener {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                downloadData()
-//            }
-
             CoroutineScope(Dispatchers.IO).launch {
-                Log.i("i", "Hello from ${Thread.currentThread().name}")
-            }
-
-            CoroutineScope(Dispatchers.Main).launch {
-                Log.i("i", "Hello from ${Thread.currentThread().name}")
+                downloadData()
             }
         }
     }
 
     // simulate long task
-    private fun downloadData() {
+    private suspend fun downloadData() {
         for (i in 1..200000) {
-            Log.i("i","Download data $i in ${Thread.currentThread().name}")
+            withContext(Dispatchers.Main) {
+                textUser.text = "Downloading user $i in ${Thread.currentThread().name}"
+            }
         }
     }
+
 }
