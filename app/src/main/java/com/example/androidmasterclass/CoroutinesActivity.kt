@@ -25,64 +25,37 @@ class CoroutinesActivity : AppCompatActivity() {
         }
 
         downloadDataButton.setOnClickListener {
-//            // sequentially
-//            Log.d("i", "Calculation sequentially started...")
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val result1 = task1()
-//                val result2 = task2()
-//                val result3 = task3()
-//                val total = result1 + result2 + result3
-//                Log.d("i", "Total is $total")
-//            }
 
-//            // concurrently (option 1)
-//            // Launch a coroutine in a background thread belong to IO thread pool and get all concurrent executions
-//            Log.d("i", "Calculation concurrently started...")
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val result1 = async { task1() }
-//                val result2 = async { task2() }
-//                val result3 = async { task3() }
-//                val total = result1.await() + result2.await() + result3.await()
-//                Log.d("i", "Total is $total")
-//            }
-
-            // concurrently (option 2)
-            // Launch a coroutine in Main thread that launch concurrent events using async(IO)
-            Log.d("i", "Calculation concurrently started...")
+            // bad way to use coroutines
             CoroutineScope(Dispatchers.Main).launch {
-                val result1 = async(Dispatchers.IO) { task1() }
-                val result2 = async(Dispatchers.IO) { task2() }
-                val result3 = async(Dispatchers.IO) { task3() }
-                val total = result1.await() + result2.await() + result3.await()
-                Log.d("i", "Total is $total")
+                textUser.text = UserDataManager().getTotalUserCount().toString()
             }
         }
     }
 
-    // simulate long task
-    private suspend fun downloadData() {
-        for (i in 1..200000) {
-            withContext(Dispatchers.Main) {
-                textUser.text = "Downloading user $i in ${Thread.currentThread().name}"
-            }
+//    // simulate long task
+//    private suspend fun downloadData() {
+//        for (i in 1..200000) {
+//            withContext(Dispatchers.Main) {
+//                textUser.text = "Downloading user $i in ${Thread.currentThread().name}"
+//            }
+//        }
+//    }
+}
+
+class UserDataManager {
+    suspend fun getTotalUserCount() : Int {
+        var count = 0
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(1000)
+            count = 50
         }
-    }
 
-    private suspend fun task1() : Int {
-        delay(10000)
-        Log.d("i", "task1 returned")
-        return 1
-    }
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            delay(3000)
+            return@async 70
+        }
 
-    private suspend fun task2() : Int {
-        delay(8000)
-        Log.d("i", "task2 returned")
-        return 2
-    }
-
-    private suspend fun task3() : Int {
-        delay(12000)
-        Log.d("i", "task3 returned")
-        return 3
+        return count + deferred.await()
     }
 }
