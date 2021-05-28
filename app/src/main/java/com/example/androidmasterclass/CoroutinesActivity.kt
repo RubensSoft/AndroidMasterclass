@@ -1,92 +1,42 @@
 package com.example.androidmasterclass
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.TextView
-import kotlinx.coroutines.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.androidmasterclass.databinding.ActivityCoroutinesBinding
 
 class CoroutinesActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCoroutinesBinding
+    private lateinit var viewModel: CoroutinesViewModel
+
     private var count = 0
     private lateinit var textUser: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutines)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_coroutines)
+        viewModel = ViewModelProvider(this).get(CoroutinesViewModel::class.java)
+        //binding.viewModel = viewModel // to use viewModel in xml
 
-        val clickHereButton = findViewById<Button>(R.id.clickHereButton)
-        val textCount = findViewById<TextView>(R.id.textCount)
-        val downloadDataButton = findViewById<Button>(R.id.downloadDataButton)
-        textUser = findViewById(R.id.textUser);
-
-        clickHereButton.setOnClickListener {
-            textCount.text = count++.toString()
-        }
-
-        downloadDataButton.setOnClickListener {
-
-            CoroutineScope(Dispatchers.Main).launch {
-//                textUser.text = UserDataManagerWithoutGuarantee().getTotalUserCount().toString()
-                textUser.text = UserDataManagerWithGuarantee().getTotalUserCount().toString()
+        viewModel.studentDataList.observe(this, Observer { students ->
+            students.forEach {
+                Log.d("i", "Student ${it.id}  ${it.name}")
             }
-        }
-    }
+        })
 
-//    // simulate long task
-//    private suspend fun downloadData() {
-//        for (i in 1..200000) {
-//            withContext(Dispatchers.Main) {
-//                textUser.text = "Downloading user $i in ${Thread.currentThread().name}"
-//            }
-//        }
-//    }
-}
+        textUser = binding.textUser
 
-class UserDataManagerWithoutGuarantee {
-    suspend fun getTotalUserCount() : Int {
-        var count = 0
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(1000)
-            count = 50
+        binding.clickHereButton.setOnClickListener {
+            binding.textCount.text = count++.toString()
         }
 
-        val deferred = CoroutineScope(Dispatchers.IO).async {
-            delay(3000)
-            return@async 70
+        binding.downloadDataButton.setOnClickListener {
+            viewModel.getStudents()
         }
-
-        return count + deferred.await()
-    }
-}
-
-class UserDataManagerWithGuarantee {
-    suspend fun getTotalUserCount() : Int {
-        var count = 0
-        lateinit var deferred : Deferred<Int>
-        lateinit var deferredOneMore : Deferred<Int>
-
-        coroutineScope {
-            launch(Dispatchers.IO) {
-                delay(1000)
-                count = 50
-            }
-
-            deferred = async(Dispatchers.IO) {
-                delay(3000)
-                return@async 70
-            }
-
-            deferredOneMore = async(Dispatchers.IO) {
-                getOne()
-            }
-        }
-
-        return count + deferred.await() + deferredOneMore.await()
-    }
-
-    private suspend fun getOne() : Int {
-        delay(1000)
-        return 1
     }
 }
