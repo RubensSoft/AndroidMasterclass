@@ -1,0 +1,35 @@
+package com.example.androidmasterclass
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.TextView
+
+class CoroutinesActivity : AppCompatActivity() {
+    private var count = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_coroutines)
+
+        val clickHereButton = findViewById<Button>(R.id.clickHereButton)
+        val textView = findViewById<TextView>(R.id.textView)
+        val downloadDataButton = findViewById<Button>(R.id.downloadDataButton)
+
+        clickHereButton.setOnClickListener {
+            textView.text = count++.toString()
+        }
+
+        downloadDataButton.setOnClickListener {
+            downloadData()
+        }
+    }
+
+    // simulate long task
+    private fun downloadData() {
+        for (i in 1..200000) {
+            Log.i("i","Dowload data $i in ${Thread.currentThread().name}")
+        }
+    }
+}
