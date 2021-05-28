@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CoroutinesActivity : AppCompatActivity() {
@@ -25,8 +26,16 @@ class CoroutinesActivity : AppCompatActivity() {
         }
 
         downloadDataButton.setOnClickListener {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                downloadData()
+//            }
+
             CoroutineScope(Dispatchers.IO).launch {
-                downloadData()
+                Log.i("i", "Hello from ${Thread.currentThread().name}")
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                Log.i("i", "Hello from ${Thread.currentThread().name}")
             }
         }
     }
