@@ -1,11 +1,9 @@
 package com.example.androidmasterclass
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.androidmasterclass.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
