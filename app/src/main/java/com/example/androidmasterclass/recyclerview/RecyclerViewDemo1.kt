@@ -17,6 +17,16 @@ class RecyclerViewDemo1 : AppCompatActivity() {
 
         binding.recyclerView.setBackgroundColor(Color.YELLOW)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = MyRecyclerViewAdapter()
+
+        val fruits = listOf(
+            Fruit("Mango", "Alberto"),
+            Fruit("Apple", "Benito"),
+            Fruit("Banana", "Carmen"),
+            Fruit("Papaya", "David"),
+            Fruit("Lemon", "Esteban"),
+            Fruit("Pear", "Fernando"),
+            Fruit("Orange", "Gerardo")
+        )
+        binding.recyclerView.adapter = MyRecyclerViewAdapter(fruits)
     }
 }
