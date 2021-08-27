@@ -3,6 +3,7 @@ package com.example.androidmasterclass.recyclerview
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidmasterclass.R
@@ -27,6 +28,14 @@ class RecyclerViewDemo1 : AppCompatActivity() {
             Fruit("Pear", "Fernando"),
             Fruit("Orange", "Gerardo")
         )
-        binding.recyclerView.adapter = MyRecyclerViewAdapter(fruits)
+        binding.recyclerView.adapter = MyRecyclerViewAdapter(fruits, {selectedFruit: Fruit->getItemClicked(selectedFruit)})
+    }
+
+    private fun getItemClicked(fruit: Fruit) {
+        Toast.makeText(
+            this@RecyclerViewDemo1,
+            "Supplier name is ${fruit.supplier}",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
