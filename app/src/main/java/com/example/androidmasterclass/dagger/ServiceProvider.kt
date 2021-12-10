@@ -1,9 +1,8 @@
 package com.example.androidmasterclass.dagger
 
 import android.util.Log
-import javax.inject.Inject
 
-class ServiceProvider @Inject constructor() {
+class ServiceProvider {
     init {
         Log.i("*****", "Service Provider Constructed")
     }
