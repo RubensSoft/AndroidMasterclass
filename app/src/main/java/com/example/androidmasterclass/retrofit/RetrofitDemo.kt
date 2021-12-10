@@ -17,8 +17,9 @@ class RetrofitDemo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_retrofit_demo)
         retrofitService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
-        getRequestWithQueryParameteres()
+//        getRequestWithQueryParameteres()
 //        getRequestWithPathParameters()
+        uploadAlbum()
     }
 
     private fun getRequestWithQueryParameteres() {
@@ -49,6 +50,21 @@ class RetrofitDemo : AppCompatActivity() {
         pathResponse.observe(this, {
             val title = it.body()?.title
             findViewById<TextView>(R.id.textView_retrofitDemo).append(title)
+        })
+    }
+
+    private fun uploadAlbum() {
+        val album = AlbumItem(0, "my title", 3)
+        val postResponse : LiveData<Response<AlbumItem>> = liveData {
+            val response = retrofitService.uploadAlbum(album)
+            emit(response)
+        }
+        postResponse.observe(this, {
+            val receivedAlbumItem = it.body()
+            val result = "Album Title : ${receivedAlbumItem?.title}\n" +
+                "Album Id : ${receivedAlbumItem?.id}\n" +
+                "User Id : ${receivedAlbumItem?.userId}\n\n\n"
+            findViewById<TextView>(R.id.textView_retrofitDemo).append(result)
         })
     }
 }
