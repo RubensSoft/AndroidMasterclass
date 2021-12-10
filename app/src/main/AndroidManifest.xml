@@ -9,14 +9,14 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.AndroidMasterclass">
-    <activity android:name=".dagger.DaggerDemoActivity"></activity>
-    <activity android:name=".retrofit.RetrofitDemo">
+    <activity android:name=".dagger.DaggerDemoActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:name=".retrofit.RetrofitDemo" />
     <activity android:name=".recyclerview.RecyclerViewDemo1" />
     <activity android:name=".navigation.NavigationMainActivity" />
     <activity android:name=".CoroutinesActivity" />
