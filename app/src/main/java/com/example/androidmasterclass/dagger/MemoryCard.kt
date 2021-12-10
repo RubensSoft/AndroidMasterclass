@@ -1,9 +1,8 @@
 package com.example.androidmasterclass.dagger
 
 import android.util.Log
-import javax.inject.Inject
 
-class MemoryCard @Inject constructor() {
+class MemoryCard {
     init {
         Log.i("*****", "Memory Card Constructed")
     }
