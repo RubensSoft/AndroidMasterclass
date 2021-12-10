@@ -20,6 +20,10 @@ class RetrofitDemo : AppCompatActivity() {
             val response = retrofitService.getSortedAlbums(userId = 3)
             emit(response)
         }
+        val pathResponse : LiveData<Response<AlbumItem>> = liveData {
+            val response = retrofitService.getAlbum(3)
+            emit(response)
+        }
 
         responseLiveData.observe(this, {
             val albumList = it.body()?.listIterator()
@@ -31,9 +35,13 @@ class RetrofitDemo : AppCompatActivity() {
                         "Album Id : ${albumItem.id}\n" +
                         "User Id : ${albumItem.userId}\n\n\n"
 
-                    findViewById<TextView>(R.id.textView_retrofitDemo).append(result)
+//                    findViewById<TextView>(R.id.textView_retrofitDemo).append(result)
                 }
             }
+        })
+        pathResponse.observe(this, {
+            val title = it.body()?.title
+            findViewById<TextView>(R.id.textView_retrofitDemo).append(title)
         })
     }
 }
