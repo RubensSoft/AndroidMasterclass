@@ -18,7 +18,7 @@ class RetrofitDemo : AppCompatActivity() {
         setContentView(R.layout.activity_retrofit_demo)
         retrofitService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
         getRequestWithQueryParameteres()
-        getRequestWithPathParameters()
+//        getRequestWithPathParameters()
     }
 
     private fun getRequestWithQueryParameteres() {
