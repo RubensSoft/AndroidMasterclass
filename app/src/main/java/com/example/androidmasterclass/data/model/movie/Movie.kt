@@ -1,9 +1,13 @@
-package com.example.androidmasterclass.data
+package com.example.androidmasterclass.data.model.movie
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "popular_movie")
 data class Movie(
 
+    @PrimaryKey
     @SerializedName("id")
     val id: Int,
     @SerializedName("overview")

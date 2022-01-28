@@ -1,8 +1,8 @@
 package com.example.androidmasterclass.data.api
 
-import com.example.androidmasterclass.data.ArtistList
-import com.example.androidmasterclass.data.MovieList
-import com.example.androidmasterclass.data.TvShowList
+import com.example.androidmasterclass.data.model.artist.ArtistList
+import com.example.androidmasterclass.data.model.movie.MovieList
+import com.example.androidmasterclass.data.model.tvshow.TvShowList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

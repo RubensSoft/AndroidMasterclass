@@ -1,4 +1,4 @@
-package com.example.androidmasterclass.data
+package com.example.androidmasterclass.data.model.tvshow
 
 import com.google.gson.annotations.SerializedName
 
