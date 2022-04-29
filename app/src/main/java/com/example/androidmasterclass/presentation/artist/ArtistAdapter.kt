@@ -1,4 +1,4 @@
-package com.example.androidmasterclass.presentation.movie
+package com.example.androidmasterclass.presentation.artist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,15 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidmasterclass.R
-import com.example.androidmasterclass.data.model.movie.Movie
+import com.example.androidmasterclass.data.model.artist.Artist
 import com.example.androidmasterclass.databinding.ListItemBinding
 
-class MovieAdapter(): RecyclerView.Adapter<MyViewHolder>() {
-    private val movieList = ArrayList<Movie>()
+class ArtistAdapter(): RecyclerView.Adapter<MyViewHolder>() {
+    private val artistList = ArrayList<Artist>()
 
-    fun setList(movies: List<Movie>) {
-        movieList.clear()
-        movieList.addAll(movies)
+    fun setList(artist: List<Artist>) {
+        artistList.clear()
+        artistList.addAll(artist)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,11 +29,11 @@ class MovieAdapter(): RecyclerView.Adapter<MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(movieList[position])
+        holder.bind(artistList[position])
     }
 
     override fun getItemCount(): Int {
-        return movieList.size
+        return artistList.size
     }
 
 }
@@ -44,11 +44,11 @@ class MyViewHolder(
 
     private val url = "https://image.tmdb.org/t/p/w500"
 
-    fun bind(movie: Movie) {
-        binding.titleTextView.text = movie.title
-        binding.descriptionTextView.text = movie.overview
+    fun bind(artist: Artist) {
+        binding.titleTextView.text = artist.name
+        binding.descriptionTextView.text = artist.popularity.toString()
 
-        val posterUrl = url + movie.posterPath
+        val posterUrl = url + artist.profilePath
         Glide.with(binding.imageView.context)
             .load(posterUrl)
             .into(binding.imageView)

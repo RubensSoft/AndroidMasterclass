@@ -35,6 +35,7 @@ class UseCaseModule {
         return GetArtistsUseCase(artistRepository)
     }
 
+    @Provides
     fun provideUpdateArtistUseCase(artistRepository: ArtistRepository): UpdateArtistsUseCase {
         return UpdateArtistsUseCase(artistRepository)
     }

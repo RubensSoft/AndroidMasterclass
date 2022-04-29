@@ -16,7 +16,7 @@ class ArtistViewModel(
     }
 
     fun updateArtists() = liveData {
-        val artistList = updateArtistsUseCase.execute()
+        val artistList = updateArtistsUseCase.run()
         emit(artistList)
     }
 

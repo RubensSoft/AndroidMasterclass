@@ -6,5 +6,5 @@ import com.example.androidmasterclass.domain.repository.ArtistRepository
 class UpdateArtistsUseCase(
     private val artistRepository: ArtistRepository
 ) {
-    suspend fun execute(): List<Artist>? = artistRepository.updateArtists()
+    suspend fun run(): List<Artist>? = artistRepository.updateArtists()
 }
