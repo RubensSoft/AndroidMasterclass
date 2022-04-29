@@ -1,10 +1,12 @@
 package com.example.androidmasterclass.data.repository.movie
 
+import android.util.Log
 import com.example.androidmasterclass.data.model.movie.Movie
 import com.example.androidmasterclass.data.repository.movie.datasource.MovieCacheDataSource
 import com.example.androidmasterclass.data.repository.movie.datasource.MovieLocalDataSource
 import com.example.androidmasterclass.data.repository.movie.datasource.MovieRemoteDataSource
 import com.example.androidmasterclass.domain.repository.MovieRepository
+import java.lang.Exception
 
 class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource,
@@ -25,7 +27,6 @@ class MovieRepositoryImpl(
 
     private suspend fun getMoviesFromAPI(): List<Movie> {
         lateinit var movieList: List<Movie>
-        // try catch ?
         movieRemoteDataSource.getMovies().body()?.let {
             movieList = it.movies
         }
