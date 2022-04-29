@@ -41,7 +41,7 @@ class MovieActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.update,menu)
+        inflater.inflate(R.menu.update, menu)
         return true
     }
 

@@ -23,7 +23,7 @@ class ArtistRepositoryImpl(
         return newListOfArtist
     }
 
-    suspend fun getArtistsFromAPI(): List<Artist> {
+    private suspend fun getArtistsFromAPI(): List<Artist> {
         lateinit var artistList: List<Artist>
         artistRemoteDatasource.getArtists().body()?.let {
             artistList = it.artists
